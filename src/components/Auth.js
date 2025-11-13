@@ -16,9 +16,9 @@ export default function Auth({ onLogin }) {
     try {
       let userCredential;
       if (isSignup) {
-        await createUserWithEmailAndPassword(auth, email, password);
+        userCredential=await createUserWithEmailAndPassword(auth, email, password);
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        userCredential=await signInWithEmailAndPassword(auth, email, password);
       }
           const user = userCredential.user; // <-- important
     onLogin(user); // pass user to App.js
