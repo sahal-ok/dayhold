@@ -1,0 +1,140 @@
+.calendar-container {
+  width: 320px;
+  margin: 20px auto;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.weekday {
+  font-weight: bold;
+  background: #f0f0f0;
+  color: red;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.day {
+  padding: 12px;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day:hover {
+  background: #e0f7fa;
+}
+
+.today {
+  background: #00acc1;
+  color: rgb(74, 237, 4);
+  font-weight: bold;
+}
+.day.today {
+  border: 2px solid #007bff;
+}
+
+.day.locked {
+  background-color: #ff7f50;
+  color: white;
+  font-weight: bold;
+}
+.empty {
+  background: transparent;
+  box-shadow: none;
+  cursor: default;
+}
+ /* ===== BOOKING CALENDAR SECTION ===== */
+    .booking-container {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      border-radius: 20px;
+      padding: 30px;
+      color: white;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .step {
+      position: relative;
+      text-align: center;
+      flex: 1;
+      min-width: 70px;
+    }
+
+    .step-number {
+      background: rgba(255, 255, 255, 0.2);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .active .step-number {
+      background: #00bfff;
+      box-shadow: 0 0 10px #00bfff;
+    }
+
+        .package-card {
+      background: rgba(255,255,255,0.15);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .package-card:hover {
+      background: rgba(0,191,255,0.3);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #00bfff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0099cc;
+    }
+
+    .next-btn {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
