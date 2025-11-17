@@ -38,7 +38,7 @@ export default function Sidebar({ menuOpen, onLogout, auditoriumEmail, setBookin
     <div className={`sidebar ${menuOpen ? "active" : ""}`}>
       <h2>🌟 Admin</h2>
       <div className="nav">
-        <button onClick={handleViewEvents}>View Events</button>
+        <a onClick={handleViewEvents}>View Events</a>
         <a href="#">Payments</a>
         <a href="#">Settings</a>
         
