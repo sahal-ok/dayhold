@@ -41,13 +41,14 @@ export default function Sidebar({ menuOpen, onLogout, auditoriumEmail, setBookin
         <button onClick={handleViewEvents}>View Events</button>
         <a href="#">Payments</a>
         <a href="#">Settings</a>
+        
       </div>
-
       <button className="logout-btn" onClick={onLogout}>
         Logout
       </button>
 
-      <button
+      
+      <button 
         onClick={() => {
           const customerEmail = prompt("Enter customer email:");
           if (!customerEmail) return;
