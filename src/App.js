@@ -51,7 +51,7 @@ export default function App() {
                auditoriumEmail={user?.email}
                />
    <div className="main" >
-    <Topbar setView={setView} />
+    <Topbar setView={setView} userEmail={user.email} />
     <CardGrid/>
      
      <div className="main">
