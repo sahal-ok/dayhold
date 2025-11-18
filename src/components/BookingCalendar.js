@@ -232,7 +232,7 @@ const fetchBookingDetails = async (dateKey) => {
         onClick={() => {
           const phone = viewBooking.phoneNumber;
           const message = `Hello ${viewBooking.name}, your program is confirmed on ${viewBooking.date}.`;
-          const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+          const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
           window.open(url, "_blank");
         }}
       >
