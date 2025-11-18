@@ -49,7 +49,7 @@ export default function BookingTable({ setView, userEmail }) {
             <tr>
               <th>Date</th>
               <th>Name</th>
-              <th>Email</th>
+              <th>phoneNumber</th>
               <th>Package</th>
               <th>Note</th>
               <th>Confirmed At</th>
@@ -60,7 +60,7 @@ export default function BookingTable({ setView, userEmail }) {
               <tr key={b.id}>
                 <td>{b.date}</td>
                 <td>{b.name || "N/A"}</td>
-                <td>{b.email || "N/A"}</td>
+                <td>{b.phoneNumber || "N/A"}</td>
                 <td>{b.package || "N/A"}</td>
                 <td>{b.note || "-"}</td>
                 <td>
