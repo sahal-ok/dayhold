@@ -52,7 +52,7 @@ export default function App() {
                />
    <div className="main" >
     <Topbar setView={setView} userEmail={user.email} />
-    <CardGrid/>
+   
      
      <div className="main">
  
@@ -61,7 +61,7 @@ export default function App() {
   {view === "bookings" && <BookingTable  setView={setView} userEmail={user.email}/>}
 
 </div>
-
+ <CardGrid/>
    </div>
       
     </div>
