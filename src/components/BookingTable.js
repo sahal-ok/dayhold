@@ -21,7 +21,10 @@ export default function BookingTable({ setView, userEmail }) {
             date,
             ...details,
           }));
-
+    
+           // ⭐ SORT BY DATE
+          bookingsArray.sort((a, b) => new Date(a.date) - new Date(b.date));
+          
           setBookings(bookingsArray);
         } else {
           setBookings([]);
