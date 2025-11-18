@@ -15,7 +15,7 @@ export default function BookingCalendar({ auditoriumEmail }) {
   const [selectedPackage, setSelectedPackage] = useState("");
   const [details, setDetails] = useState({ name: "", email: "", note: "" });
   const [confirmationMsg, setConfirmationMsg] = useState("");
-
+const [viewBooking, setViewBooking] = useState(null);
   
   const safeEmail = auditoriumEmail.replace(/\./g, "_");
   const today = new Date();
@@ -50,12 +50,30 @@ if (!auditoriumEmail) return <div>Please provide an auditorium email.</div>;
     }
   };
 
+  //popup details
+const fetchBookingDetails = async (dateKey) => {
+  try {
+    const snapshot = await get(ref(db, `bookings/${safeEmail}/${dateKey}`));
+    if (snapshot.exists()) {
+      setViewBooking({
+        date: dateKey,
+        ...snapshot.val()
+      });
+    }
+  } catch (error) {
+    console.error("Error loading booking info:", error);
+  }
+};
+
   const selectDate = (day) => {
     if (!day) return;
     const monthStr = String(current.month + 1).padStart(2, "0");
     const dayStr = String(day).padStart(2, "0");
     const dateKey = `${current.year}-${monthStr}-${dayStr}`;
-    if (lockedDates.includes(dateKey)) return; // already booked
+    if (lockedDates.includes(dateKey)){
+  fetchBookingDetails(dateKey);
+  return;
+}// already booked
     setSelectedDate(dateKey);
     setStep(2);
   };
@@ -87,13 +105,13 @@ if (!auditoriumEmail) return <div>Please provide an auditorium email.</div>;
   const handleNext = async () => {
     if (step === 2 && !selectedPackage) return alert("Please select a package.");
     if (step === 3) {
-      if (!details.name || !details.email) return alert("Please fill all details.");
+      if (!details.name || !details.phoneNumber) return alert("Please fill all details.");
       try {
         const bookingRef = ref(db, `bookings/${safeEmail}/${selectedDate}`);
         await set(bookingRef, {
           package: selectedPackage,
           name: details.name,
-          email: details.email,
+          phoneNumber: details.phoneNumber,
           note: details.note,
           confirmedAt: new Date().toISOString(),
         });
@@ -172,7 +190,7 @@ if (!auditoriumEmail) return <div>Please provide an auditorium email.</div>;
       {step === 3 && (
         <div className="details">
           <input type="text" placeholder="Your Name" value={details.name} onChange={(e) => setDetails({ ...details, name: e.target.value })} />
-          <input type="email" placeholder="Email" value={details.email} onChange={(e) => setDetails({ ...details, email: e.target.value })} />
+          <input type="number" placeholder="phoneNumber" value={details.phoneNumber} onChange={(e) => setDetails({ ...details, phoneNumber: e.target.value })} />
           <textarea placeholder="Special Requests" value={details.note} onChange={(e) => setDetails({ ...details, note: e.target.value })}></textarea>
           <div className="next-btn"><button onClick={handleNext}>Submit</button></div>
         </div>
@@ -186,7 +204,7 @@ if (!auditoriumEmail) return <div>Please provide an auditorium email.</div>;
       setStep(1); 
       setSelectedDate(null); 
       setSelectedPackage(""); 
-      setDetails({ name: "", email: "", note: "" }); 
+      setDetails({ name: "", phoneNumber: "", note: "" }); 
       setConfirmationMsg(""); 
     }}>
       🔙 Back to Calendar
@@ -194,7 +212,39 @@ if (!auditoriumEmail) return <div>Please provide an auditorium email.</div>;
         </div>
       )}
 
+      {/* pop up details */}
+      {viewBooking && (
+  <div className="booking-popup">
+    <div className="popup-content">
+
+      <h2>Booking Details</h2>
+      <p><strong>Date:</strong> {viewBooking.date}</p>
+      <p><strong>Name:</strong> {viewBooking.name}</p>
+      <p><strong>Phone Number:</strong> {viewBooking.phoneNumber}</p>
+      <p><strong>Package:</strong> {viewBooking.package}</p>
+      <p><strong>Note:</strong> {viewBooking.note || "None"}</p>
+      <p><strong>Confirmed:</strong> {new Date(viewBooking.confirmedAt).toLocaleString()}</p>
+     
+
+      {/* WhatsApp button */}
+      <button
+        style={{ background: "#25D366", color: "white", padding: "10px", marginTop: "10px" }}
+        onClick={() => {
+          const phone = viewBooking.phoneNumber;
+          const message = `Hello ${viewBooking.name}, your program is confirmed on ${viewBooking.date}.`;
+          const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+          window.open(url, "_blank");
+        }}
+      >
+        WhatsApp
+      </button>
+
       
+      <button onClick={() => setViewBooking(null)}>Close</button>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
