@@ -13,7 +13,7 @@ import BookingTable from "./components/BookingTable";
 
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [view, setView] = useState("calendar");
