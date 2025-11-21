@@ -33,6 +33,10 @@ export default function App() {
       console.error("Logout error:", err);
     }
   };
+  
+if (user === undefined) {
+  return null;                                  // NOTHING → no flicker
+}
   if (!user) {
     return <Auth onLogin={() => setUser(auth.currentUser)} />;
   }
